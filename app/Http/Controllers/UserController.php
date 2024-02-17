@@ -38,6 +38,10 @@ class UserController extends Controller
         $data['password'] = Hash::make($request->password);
         \App\Models\User::create($data);
         return redirect()->route('user.index')->with('success', 'User successfully created');
+
+
+
+
     }
 
 

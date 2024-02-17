@@ -1,6 +1,6 @@
-{{-- @extends('layouts.auth')
+@extends('layouts.auth')
 
-@section('title', 'Register')
+@section('title', 'Register CBT')
 
 @push('style')
     <!-- CSS Libraries -->
@@ -14,93 +14,113 @@
         </div>
 
         <div class="card-body">
-            <form method="POST" action="{{ route('register') }}">
+            <form method="POST" action="{{ route('register') }}" enctype="multipart/form-data">
                 @csrf
-                <div class="row">
-                    <div class="form-group col-6">
-                        <label for="frist_name">Name</label>
-                        <input id="frist_name" type="text"
-                            class="form-control @error('name')
-                            is-invalid
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <input id="name" type="text"
+                        class="form-control @error('name')
+                        is-invalid
+                    @enderror"
+                        name="name" autofocus>
+                    @error('name')
+                        <div class="invalid-feedback">
+                            {{ $message }}
+                        </div>
+                    @enderror
+                </div>
 
-                        @enderror"
-                            name="name" autofocus>
-                        @error('name')
-                            <div class="invalid-feedback">{{ $message }} </div>
-                        @enderror
+
+
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input id="email" type="email"
+                        class="form-control @error('email')
+                        is-invalid
+                    @enderror"
+                        name="email">
+                    @error('email')
+                        <div class="invalid-feedback">
+                            {{ $message }}
+                        </div>
+                    @enderror
+                </div>
+
+
+                <div class="form-group">
+                    <label for="password" class="d-block">Password</label>
+                    <input id="password" type="password"
+                        class="form-control pwstrength @error('password')
+                        is-invalid
+
+                    @enderror"
+                        data-indicator="pwindicator" name="password">
+                    @error('password')
+                        <div class="invalid-feedback">
+                            {{ $message }}
+                        </div>
+                    @enderror
+                    <div id="pwindicator" class="pwindicator">
+                        <div class="bar"></div>
+                        <div class="label"></div>
                     </div>
                 </div>
-        </div>
-
-        <div class="form-group">
-            <label for="email">Email</label>
-            <input id="email" type="email" class="form-control" name="email">
-            <div class="invalid-feedback">
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="form-group col-6">
-                <label for="password" class="d-block">Password</label>
-                <input id="password" type="password" class="form-control pwstrength" data-indicator="pwindicator"
-                    name="password">
-                <div id="pwindicator" class="pwindicator">
-                    <div class="bar"></div>
-                    <div class="label"></div>
+                <div class="form-group ">
+                    <label for="password2" class="d-block">Password Confirmation</label>
+                    <input id="password2" type="password"
+                        class="form-control @error('password_confirmation')
+                        is-invalid
+                    @enderror"
+                        name="password_confirmation">
                 </div>
-            </div>
-            <div class="form-group col-6">
-                <label for="password2" class="d-block">Password Confirmation</label>
-                <input id="password2" type="password" class="form-control" name="password_confirmation">
-            </div>
-        </div>
+                @error('password_confirmation')
+                    <div class="invalid-feedback">
+                        {{ $message }}
+                    </div>
+                @enderror
 
-        <div class="form-divider">
-            Your Home
-        </div>
-        <div class="row">
-            <div class="form-group col-6">
-                <label>Country</label>
-                <select class="form-control selectric">
-                    <option>Indonesia</option>
-                    <option>Palestine</option>
-                    <option>Syria</option>
-                    <option>Malaysia</option>
-                    <option>Thailand</option>
-                </select>
-            </div>
-            <div class="form-group col-6">
-                <label>Province</label>
-                <select class="form-control selectric">
-                    <option>West Java</option>
-                    <option>East Java</option>
-                </select>
-            </div>
-        </div>
-        <div class="row">
-            <div class="form-group col-6">
-                <label>City</label>
-                <input type="text" class="form-control">
-            </div>
-            <div class="form-group col-6">
-                <label>Postal Code</label>
-                <input type="text" class="form-control">
-            </div>
-        </div>
+                <div class="form-group">
+                    <label for="roles">Role</label>
+                    <select name="roles" id="roles" class="form-control">
+                        <option value="admin">Admin</option>
+                        <option value="user">User</option>
+                        <option value="staff">Staff</option>
+                    </select>
+                    <div class="form-group">
+                        <label for="phone">Phone</label>
+                        <input id="phone" type="text"
+                            class="form-control @error('phone')
+                        is-invalid
+                    @enderror"
+                            name="phone">
+                        @error('phone')
+                            <div class="invalid-feedback">
+                                {{ $message }}
+                            </div>
+                        @enderror
+                    </div>
+                    <div class="form-group">
+                        <label>Photo Profilet</label>
+                        <div class="col-sm-9">
+                            <input type="file" class="form-control" name="image" @error('image') is-invalid @enderror>
+                        </div>
+                        @error('image')
+                            <div class="invalid-feedback">
+                                {{ $message }}
+                            </div>
+                        @enderror
+                    </div>
 
-        <div class="form-group">
-            <div class="custom-control custom-checkbox">
-                <input type="checkbox" name="agree" class="custom-control-input" id="agree">
-                <label class="custom-control-label" for="agree">I agree with the terms and conditions</label>
-            </div>
-        </div>
 
-        <div class="form-group">
-            <button type="submit" class="btn btn-primary btn-lg btn-block"> <a href="{{ route('login') }}">Register</a>
-            </button>
+
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary btn-lg btn-block">
+                            Register
+                        </button>
+
+                    </div>
+            </form>
         </div>
-        </form>
-    </div>
     </div>
 @endsection
 
@@ -111,4 +131,4 @@
 
     <!-- Page Specific JS File -->
     <script src="{{ asset('js/page/auth-register.js') }}"></script>
-@endpush --}}
+@endpush
